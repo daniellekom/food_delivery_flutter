@@ -1,3 +1,7 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+
 import '../model/cart.dart';
 import 'package:stacked/stacked.dart';
 
@@ -12,10 +16,38 @@ class HomeViewModel extends BaseViewModel{
   ];
 
   List<List<String>> tabs = [
-    ['Fruits','assets/images/fruits.png'],
-    ['Vegetables','assets/images/vegetables.png'],
-    ['Meats','assets/images/meats.png'],
+    ['Fruits','assets/images/fruits.png',],
+    ['Vegetables','assets/images/vegetables.png',],
+    ['Meats','assets/images/meats.png',],
   ];
+
+  String? selectedTab;
+  String? selectedFoodOrder;
+
+  void setSelectedTab(String tabIclickedOn){
+   if(selectedTab == tabIclickedOn){
+     selectedTab = null;
+   }else{
+     selectedTab = tabIclickedOn;
+   }
+   notifyListeners();
+  }
+
+  void setSelectedOrder(String foodIselected){
+    if(selectedFoodOrder == foodIselected){
+      selectedFoodOrder = null;
+    }else{
+      selectedFoodOrder = foodIselected;
+    }
+    notifyListeners();
+  }
+
+  List<Cart> getFoodForTab(String? tab){
+    return cart.where((element) => element.foodName == tab).toList();
+  }
+
+
+
 
 
 
