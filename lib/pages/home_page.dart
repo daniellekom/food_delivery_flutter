@@ -11,7 +11,6 @@ import '../model/cart.dart';
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
@@ -92,15 +91,17 @@ class HomePage extends StatelessWidget {
                     Expanded(
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: viewModel.tabs.length,
+                            itemCount: viewModel.tabItems.length,
                             itemBuilder: (context, index) {
                               return MyCategories(
-                                  imagePath: viewModel.tabs[index][1],
-                                  foodGroupName: viewModel.tabs[index][0],
-                                  isSelected: viewModel.selectedTab == viewModel.tabs[index][0],
-                                  onTap: () {
-                                    viewModel.setSelectedTab(viewModel.tabs[index][0]);
-                                  });
+                                imagePath: viewModel.tabItems[index][1],
+                                color: viewModel.tabItems[index][2],
+                                foodGroupName: viewModel.tabItems[index][0],
+                                isSelected: viewModel.selectedTab == viewModel.tabItems[index][0],
+                                onTap: () {
+                                  viewModel.setSelectedTab(viewModel.tabItems[index][0]);
+                                },
+                              );
                             })),
 
                     const SizedBox(
@@ -111,7 +112,7 @@ class HomePage extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 30.0),
                           child: Text(
-                            "My Orders",
+                            "Select items from below",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -128,11 +129,12 @@ class HomePage extends StatelessWidget {
                             Cart cart = viewModel.getFoodForTab(viewModel.selectedTab)[index];
                             return MyOrders(
                               imagePath: cart.imagePath,
-                              foodGroup: cart.foodName,
+                              color: cart.color,
+                              foodGroup: cart.foodItem,
                               foodPrice: cart.price,
-                              isSelected: viewModel.selectedFoodOrder == cart.foodName,
+                              isSelected: viewModel.selectedFoodOrder == cart.foodItem,
                               onTap: () {
-                                viewModel.setSelectedOrder(cart.foodName);
+                                viewModel.setSelectedOrder(cart.foodItem);
                               },
                             );
                           }),

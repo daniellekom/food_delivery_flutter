@@ -5,6 +5,7 @@ class MyCategories extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
   final foodGroupName;
+  final MaterialColor color;
 
 
   const MyCategories({
@@ -13,18 +14,19 @@ class MyCategories extends StatelessWidget {
     required this.foodGroupName,
     required this.isSelected,
     required this.onTap,
+   required this.color,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.only(left: 16.0),
       child: GestureDetector(
         onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: isSelected ? Colors.pink[100] : Colors.blue,
+            color: isSelected ? color[300] : color[100]
           ),
           child: Row(
             children: [
